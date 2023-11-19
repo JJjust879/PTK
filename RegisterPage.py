@@ -7,8 +7,6 @@ import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
-
-
 class PenangFlagWidget(QWidget):
     def paintEvent(self, event):
         painter = QPainter(self)
@@ -121,8 +119,8 @@ class RegisterPageStart(QWidget):
 
             self.hide()
             # Create and show the StartupWindow after closing the current window
-            import StartupWindow
-            self.StartupWindow = StartupWindow.PenangIslandTouristKiosk()
+            from StartupWindow import PenangIslandTouristKiosk
+            self.StartupWindow = PenangIslandTouristKiosk()
             self.StartupWindow.show()
 
         except sqlite3.Error as e:

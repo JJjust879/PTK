@@ -79,7 +79,7 @@ class PenangIslandTouristKiosk(QMainWindow):
 
     def openRegisterPage(self):
         from RegisterPage import RegisterPageStart  # Import RegisterPage locally
-        database = sqlite3.connect("user_data.db")
+        database = sqlite3.connect("ptk.db")
         self.register_page = RegisterPageStart(database)
         self.register_page.show()
         self.hide()

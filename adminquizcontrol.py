@@ -35,10 +35,10 @@ class EditDialog(QDialog):
         self.option_d.setText(question[5])
 
         self.correct_answer = QFormLayout()
-        self.correct_answer.addRow(QCheckBox("A", checked=question[6] == 'A'))
-        self.correct_answer.addRow(QCheckBox("B", checked=question[6] == 'B'))
-        self.correct_answer.addRow(QCheckBox("C", checked=question[6] == 'C'))
-        self.correct_answer.addRow(QCheckBox("D", checked=question[6] == 'D'))
+        self.correct_answer.addRow(QCheckBox("Option A", checked=question[6] == question[2]))
+        self.correct_answer.addRow(QCheckBox("Option B", checked=question[6] == question[3]))
+        self.correct_answer.addRow(QCheckBox("Option C", checked=question[6] == question[4]))
+        self.correct_answer.addRow(QCheckBox("Option D", checked=question[6] == question[5]))
 
         self.save_button = QPushButton("Save", self)
         self.save_button.clicked.connect(self.save_changes)
@@ -69,9 +69,18 @@ class EditDialog(QDialog):
 
         correct_answer = None
         for i in range(self.correct_answer.rowCount()):
-            if self.correct_answer.itemAt(i, QFormLayout.FieldRole).widget().isChecked():
-                correct_answer = chr(ord('A') + i)
+            radio_button = self.correct_answer.itemAt(i, QFormLayout.FieldRole).widget()
+            if radio_button.isChecked():
+                if i == 0:
+                    correct_answer = option_a
+                elif i == 1:
+                    correct_answer = option_b
+                elif i == 2:
+                    correct_answer = option_c
+                elif i == 3:
+                    correct_answer = option_d
                 break
+
 
         if not correct_answer:
             QMessageBox.warning(self, 'Validation Error', 'Please select the correct answer.')
@@ -186,7 +195,7 @@ class AdminApp(QMainWindow):
         correct_answer = None
         for i in range(self.correct_answer.rowCount()):
             if self.correct_answer.itemAt(i, QFormLayout.FieldRole).widget().isChecked():
-                correct_answer = chr(ord('A') + i)
+                correct_answer = [option_a, option_b, option_c, option_d][i]
                 break
 
         if not correct_answer:
@@ -211,6 +220,7 @@ class AdminApp(QMainWindow):
             self.correct_answer.itemAt(i, QFormLayout.FieldRole).widget().setChecked(False)
 
         self.load_questions()
+
 
     def load_questions(self):
         self.tree_widget.clear()

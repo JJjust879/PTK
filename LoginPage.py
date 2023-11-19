@@ -86,14 +86,19 @@ class LoginPageStart(QWidget):
             self.Admin=AdminApp()
             self.Admin.show()
             self.hide()
+        
+        elif email=="feedback":
+            from feedbackcontrol import ComplaintsViewer
+            self.feed=ComplaintsViewer()
+            self.feed.show()
+            self.hide()
+
         # Check if the email exists in the database
         elif self.is_valid_email(email):
             # Email exists, perform login actions here
             # Perform login actions here, e.g., open the main application window
-            global currentemail
-            currentemail=email
             from main import MainApp
-            self.Main_app=MainApp()
+            self.Main_app=MainApp(email)
             self.Main_app.show()
             self.hide()
 
