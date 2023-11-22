@@ -46,8 +46,6 @@ class MyApp(QWidget):
             search_box_position='topleft'
         )
 
-        # Add your map configuration here
-
     def perform_search(self):
         search_string = self.search_box.text()
         search_and_display_results(search_string, self.result_div)
@@ -72,8 +70,6 @@ def search_and_display_results(search_string, result_div):
             ).add_to(marker_cluster)
 
     result_div.setText(f"Found {len(search_results)} results.")
-
-    # Add the rest of your code
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
