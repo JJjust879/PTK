@@ -235,7 +235,7 @@ class TicketSystem(QWidget):
         db.close
 
         # Add the new ticket to the list of tickets
-        self.send_ticket_email(self.email,name,adult_count,child_count)
+        self.send_ticket_email(self.email,name,adult_count,child_count, selected_attraction_name)
 
         # Inform the user that the ticket has been created
         self.text_display.append("Success: Ticket information and details have been sent to your email.")
@@ -253,7 +253,7 @@ class TicketSystem(QWidget):
         current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         self.time_label.setText(f"Transaction Time: {current_time}")
 
-    def send_ticket_email(self, email, name,adult_count,child_count):
+    def send_ticket_email(self, email, name,adult_count,child_count, selected_attraction_name):
         smtp_server = 'smtp.gmail.com'
         smtp_port = 587  # Use the appropriate port
         sender_email = 'penangislandtouristkiosk@gmail.com'  # Your email address
@@ -261,7 +261,7 @@ class TicketSystem(QWidget):
 
         # Create the email message
         subject = "Your Ticket"
-        body = "Thank you, "+ str(name) +", for purchasing a ticket/s on the Penang Island Tourist Kiosk. No of Adults: "+str(adult_count)+" No of Child: " +str(child_count)
+        body = "Thank you, "+ str(name) +", for purchasing a ticket/s on the Penang Island Tourist Kiosk.:" +str(selected_attraction_name)+ " No of Adults: "+str(adult_count)+" No of Child: " +str(child_count)
         msg = MIMEMultipart()
         msg['From'] = sender_email
         msg['To'] = email
